@@ -2,21 +2,29 @@
 #include <vector>
 using namespace std;
 
-int N,i,work_count=1;
-long long int current,t1,t2;
-vector<int> m;
+int N,Q,input,sum;
+vector<int> pole,result;
 
 int main(){
-    cin >> N;
+    cin >> N >> Q;
+    result.push_back(3000001);
     for(int i=0;i<N;i++){
-        cin >> t1 >> t2;
-        m.push_back(t1);
+        cin >> input;
+        pole.push_back(input);
     }
-
-    sort(m.begin(),m.end());
-    vector<int>::iterator its;
-    for (its = m.begin(); its != m.end(); ++its){
-        cout << *its << "\n";
+    for(int i=1;i<N-1;i++){
+        sum = pole[i-1] + pole[i] + pole[i+1];
+        result[sum] += 1;
+        result[sum-pole[i+1]] += 1;
     }
-    return 0;
+    result[pole[N-1]+pole[N-2]] += 1;
+    for(int i=0;i<Q;i++){
+        cin >> input;
+        if(result[input] != 0){
+            cout << "Y";
+        }
+        else{
+            cout << "N";
+        }
+    }
 }
